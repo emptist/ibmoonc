@@ -1,19 +1,19 @@
 # IB MoonBit API Wrapper - C/Native Target
 
-**Purpose**: This is the C/Native target-specific implementation of IB TWS/Gateway API wrapper for MoonBit.
+**Purpose**: This is the C/Native target-specific implementation of the IB TWS/Gateway API wrapper for MoonBit.
 
 ## Why This Project Exists?
 
-Due to a MoonBit language limitation, the main [ibmoon](../ibmoon) project cannot use target-specific FFI implementations when building with explicit targets. This project provides a working C/Native implementation that uses C FFI layer directly.
+Due to a MoonBit language limitation, the main [ibmoon](../ibmoon) project cannot use target-specific FFI implementations when building with explicit targets. This project provides a working C/Native implementation that uses the C FFI layer directly.
 
 **See the [main ibmoon project](../ibmoon) for complete documentation on the FFI limitation and why multiple target-specific projects are needed.**
 
 ## Features
 
 - **Target**: C/Native
-- **FFI Implementation**: Uses POSIX sockets for network operations
-- **Use Case**: Native applications, high-performance scenarios
-- **Performance**: Best performance with native code execution
+- **FFI Implementation**: Uses POSIX sockets for socket operations
+- **Use Case**: Native applications, high-performance systems
+- **Performance**: Best performance for I/O-bound operations
 
 ## Installation
 
@@ -32,7 +32,7 @@ Due to a MoonBit language limitation, the main [ibmoon](../ibmoon) project canno
 ## Building
 
 ```bash
-# Build for C target
+# Build for C/Native target
 moon build --target c
 
 # Run tests
@@ -93,8 +93,8 @@ moon run --target c cmd/main/example_positions
 
 ## Prerequisites
 
-- **C Compiler**: GCC or Clang required for native compilation
-- **POSIX System**: Linux, macOS, or Windows with WSL
+- **C Compiler**: Required for native compilation (GCC, Clang, or compatible)
+- **POSIX System**: Linux, macOS, or other POSIX-compliant systems
 - **IB TWS or IB Gateway**: Must be running and configured with API access
 - **API Port**: Default is 7496 for paper trading, 7497 for live trading
 - **API Connections**: Must be enabled in TWS/Gateway settings
@@ -118,58 +118,43 @@ moon test --target c
 - **File**: `socket.mbt`
 - **FFI File**: `socket_impl.c`
 - **Implementation**: Uses POSIX sockets for TCP connections
-- **Platform Support**: Linux, macOS, Windows (via WSL)
 
 ### Core Files
 All core IB API files are included:
-- `types.mbt` - Data types for contracts, orders, etc.
-- `orders.mbt` - Order types and helpers
-- `protocol.mbt` - Message protocol definitions
-- `encoder.mbt` - Message encoding
-- `decoder.mbt` - Message decoding
-- `client.mbt` - Connection and client management
 - `api.mbt` - High-level API wrapper
+- `client.mbt` - Connection and client management
+- `decoder.mbt` - Message decoding
+- `encoder.mbt` - Message encoding
 - `handlers.mbt` - Message handlers for callbacks
+- `protocol.mbt` - Message protocol definitions
+- `socket.mbt` - Socket abstraction layer
+- `ibmoon.mbt` - Main package interface
 
-## C-Specific Notes
+## C/Native-Specific Notes
 
-- **Runtime**: Native execution, no JavaScript runtime required
-- **Performance**: Best performance with direct native code execution
-- **Memory Management**: Manual memory management for socket operations
+- **Runtime**: Native C runtime
+- **POSIX Sockets**: Direct socket access for maximum performance
 - **Error Handling**: C errors are converted to MoonBit `Result` types
-- **Socket Lifecycle**: Sockets must be explicitly closed to prevent resource leaks
-
-## Platform Support
-
-### Linux
-- Full support with POSIX sockets
-- Recommended for production deployments
-
-### macOS
-- Full support with BSD sockets
-- Tested and verified
-
-### Windows
-- Limited support via WSL (Windows Subsystem for Linux)
-- Native Windows support requires Win32 socket implementation
+- **Socket Lifecycle**: Sockets are managed manually, must be closed explicitly
+- **Platform**: Requires POSIX-compliant operating system (Linux, macOS, BSD, etc.)
 
 ## Performance Characteristics
 
-- **Connection Speed**: Fast (native TCP)
-- **Message Throughput**: High (no JavaScript overhead)
-- **Memory Usage**: Low (no V8 runtime)
-- **CPU Usage**: Efficient (native code execution)
+- **Latency**: Lowest among all targets (direct native execution)
+- **Memory**: Efficient memory management
+- **CPU**: Native execution without JIT overhead
+- **I/O**: Direct socket access with minimal abstraction
 
 ## Limitations
 
-- **Windows Native**: Not supported without WSL
-- **Cross-Platform**: Requires platform-specific builds
-- **Binary Size**: Larger than WebAssembly targets
+- **Platform**: Only POSIX-compliant systems (Linux, macOS, BSD)
+- **Windows**: Not currently supported (would need Win32 socket implementation)
+- **Manual Memory Management**: Requires careful socket lifecycle management
 
 ## Related Projects
 
 - **[ibmoon](../ibmoon)** - Main project with complete documentation
-- **[ibmoonjs](../ibmoonjs)** - JavaScript/Node.js target for server-side apps
+- **[ibmoonjs](../ibmoonjs)** - JavaScript/Node.js target for server-side applications
 - **[ibmoonwa](../ibmoonwa)** - WebAssembly target for browser environments
 
 ## License

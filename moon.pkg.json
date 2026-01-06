@@ -1,1 +1,9 @@
-{}
+{
+    "is-link": true,
+    "link": {
+        "c": {
+            "path": "socket_impl.c",
+            "c-ffi": true
+        }
+    }
+}

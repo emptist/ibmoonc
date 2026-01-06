@@ -2,8 +2,15 @@
   "name": "username/ibmoonc",
   "version": "0.1.0",
   "readme": "README.mbt.md",
-  "repository": "",
+  "repository": "https://github.com/username/ibmoon",
   "license": "Apache-2.0",
-  "keywords": [],
-  "description": ""
+  "keywords": [
+    "interactive-brokers",
+    "tws",
+    "trading",
+    "finance",
+    "c",
+    "native"
+  ],
+  "description": "MoonBit wrapper for Interactive Brokers TWS/Gateway API with C/Native FFI socket implementation"
 }
